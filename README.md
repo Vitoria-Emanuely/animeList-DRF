@@ -6,7 +6,7 @@ O sistema possui o objetivo de facilitar a visualização, controle e organizaç
 
 ## Diagrama de Classes
 
-![Diagrama de Classes](class_diagram.png)
+![Diagrama de Classes](class-diagram.png)
 
 ### Deploy
 
