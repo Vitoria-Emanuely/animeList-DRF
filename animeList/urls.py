@@ -19,17 +19,19 @@ from rest_framework import routers
 from core import views
 
 router = routers.DefaultRouter()
-router.register(r'generos-viewset', views.GeneroViewSet)
-router.register(r'estudios-viewset', views.EstudioViewSet)
-# router.register(r'animes-viewset', views.AnimeViewSet)
+router.register(r"generos", views.GeneroViewSet)
+router.register(r"estudios", views.EstudioViewSet)
+router.register(r"animes", views.AnimeViewSet)
+router.register(r"lista", views.ListaViewSet)
+# router.register(r"usuarios", views.UsuarioViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('generos/', views.GeneroView.as_view()),
-    path('generos/<int:id>/', views.GeneroView.as_view()),
-    path('generos-apiview/', views.GenerosList.as_view()),
-    path('generos-apiview/<int:id>/', views.GeneroDetail.as_view()),
-    path('generos-generic/', views.GenerosListGeneric.as_view()),
-    path('generos-generic/<int:id>/', views.GeneroDetailGeneric.as_view()),
-    path('', include(router.urls))
+    path("admin/", admin.site.urls),
+    path("generos-class/", views.GeneroView.as_view()),
+    path("generos-class/<int:id>/", views.GeneroView.as_view()),
+    path("generos-apiview/", views.GenerosList.as_view()),
+    path("generos-apiview/<int:id>/", views.GeneroDetail.as_view()),
+    path("generos-generic/", views.GenerosListGeneric.as_view()),
+    path("generos-generic/<int:id>/", views.GeneroDetailGeneric.as_view()),
+    path("", include(router.urls)),
 ]

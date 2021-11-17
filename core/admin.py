@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Genero, Estudio, Anime, Adiciona, AdicionaAnimes
+from core.models import Genero, Estudio, Anime, Lista, ListaAnimes
 
 admin.site.register(Genero)
 admin.site.register(Estudio)
@@ -8,10 +8,10 @@ admin.site.register(Anime)
 
 
 class ItensInInline(admin.TabularInline):
-    model = AdicionaAnimes
-    max_num = 1
+    model = ListaAnimes
+    # max_num = 1
 
-@admin.register(Adiciona)
-class AdicionaAdmin(admin.ModelAdmin):
-    inlines = (ItensInInline,) 
-    
+
+@admin.register(Lista)
+class ListaAdmin(admin.ModelAdmin):
+    inlines = (ItensInInline,)
