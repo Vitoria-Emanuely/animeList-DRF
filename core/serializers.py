@@ -82,7 +82,7 @@ class ListaSerializer(ModelSerializer):
 
     class Meta:
         model = Lista
-        fields = ("id", "usuario", "lista_animes")
+        fields = ("id", "usuario", "lista_animes", "epsA_total")
 
 
 class CriarEditarListaAnimesSerializer(ModelSerializer):

@@ -33,10 +33,10 @@ class Anime(models.Model):
 class Lista(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.PROTECT, related_name="lista")
 
-    # @property
-    # def epsA_total(self):
-    #     queryset = self.animesAdd.all().aggregate(epsA_total=models.Sum("eps"))
-    #     return queryset["epsA_total"]
+    @property
+    def epsA_total(self):
+        queryset = self.lista_animes.all().aggregate(epsA_total=models.Sum("eps"))
+        return queryset["epsA_total"]
 
 
 # class Usuario(User):
