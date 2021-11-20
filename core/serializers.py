@@ -5,6 +5,8 @@ from rest_framework.serializers import (
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from core.models import Genero, Estudio, Anime, Lista, ListaAnimes
+from django.core.exceptions import ValidationError
+from django.db import transaction
 
 
 class GeneroSerializer(ModelSerializer):
@@ -82,13 +84,23 @@ class ListaSerializer(ModelSerializer):
 
     class Meta:
         model = Lista
-        fields = ("id", "usuario", "lista_animes", "epsA_total")
+        fields = ("usuario", "lista_animes", "epsA_total")
 
 
 class CriarEditarListaAnimesSerializer(ModelSerializer):
+    def validate(self, attr):
+        anime = attr.get("anime")
+        if attr["eps"] > anime.epsT:
+            raise ValidationError("O número máximo de eps é %d" % anime.epsT)
+        if attr["eps"] == anime.epsT:
+            attr["status"] = "Completo"
+        if attr["eps"] < anime.epsT and attr["status"] == "Completo":
+            raise ValidationError("Status inválido")
+        return attr
+
     class Meta:
         model = ListaAnimes
-        fields = ("anime", "eps", "status")
+        fields = ("id", "anime", "eps", "status")
 
 
 class CriarEditarListaSerializer(ModelSerializer):
@@ -99,26 +111,33 @@ class CriarEditarListaSerializer(ModelSerializer):
         fields = ("usuario", "lista_animes")
 
     def create(self, validated_data):
-
         lista_animes = validated_data.pop("lista_animes")
-        breakpoint()
         try:
             lista = Lista.objects.get(usuario=validated_data.get("usuario"))
         except Exception:
             lista = Lista.objects.create(**validated_data)
-
         for i in lista_animes:
             ListaAnimes.objects.create(lista=lista, **i)
         lista.save()
         return lista
 
+    @transaction.atomic
     def update(self, instance, validated_data):
         lista_animes = validated_data.pop("lista_animes")
-        if lista_animes:
-            instance.lista_animes.all().delete()
-            for i in lista_animes:
+        animes = ListaAnimes.objects.filter(lista=instance)
+        for i in lista_animes:
+            achou = False
+            for j in animes:
+                if i.get("anime") == j.anime:
+                    achou = True
+                    if i.get("eps"):
+                        j.eps = i.get("eps")
+                    if i.get("status"):
+                        j.status = i.get("status")
+                    j.save()
+                    break
+            if achou is False:
                 ListaAnimes.objects.create(lista=instance, **i)
-            instance.save()
         return instance
 
 

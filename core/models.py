@@ -1,29 +1,34 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 
 class Genero(models.Model):
     class Meta:
         verbose_name_plural = "Generos"
 
-    descricao = models.CharField(max_length=100)
+    descricao = models.CharField("Descrição", max_length=100)
 
     def __str__(self):
         return self.descricao
 
 
 class Estudio(models.Model):
-    nome = models.CharField(max_length=100)
+    nome = models.CharField("Nome", max_length=100)
 
     def __str__(self):
         return self.nome
 
 
 class Anime(models.Model):
-    titulo = models.CharField(max_length=255, unique=True)
-    genero = models.ManyToManyField(Genero, related_name="animes")
-    estudio = models.ManyToManyField(Estudio, related_name="animes")
-    epsT = models.IntegerField(verbose_name="Episodios Totais")
+    titulo = models.CharField("Título", max_length=255, unique=True)
+    genero = models.ManyToManyField(
+        Genero, verbose_name="Gênero", related_name="animes"
+    )
+    estudio = models.ManyToManyField(
+        Estudio, verbose_name="Estúdio", related_name="animes"
+    )
+    epsT = models.PositiveIntegerField(verbose_name="Episódios Totais")
 
     def __str__(self):
         gen = ", ".join(str(i) for i in self.genero.all())
@@ -31,7 +36,9 @@ class Anime(models.Model):
 
 
 class Lista(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.PROTECT, related_name="lista")
+    usuario = models.OneToOneField(
+        User, on_delete=models.PROTECT, verbose_name="Usuário", related_name="lista"
+    )
 
     @property
     def epsA_total(self):
@@ -59,7 +66,22 @@ class ListaAnimes(models.Model):
         DESISTI = "Desisti"
 
     status = models.CharField(
-        max_length=255, choices=StatusAnime.choices, default=StatusAnime.ASSISTINDO
+        "Status",
+        max_length=255,
+        choices=StatusAnime.choices,
+        default=StatusAnime.ASSISTINDO,
     )
-    anime = models.ForeignKey(Anime, on_delete=models.PROTECT, related_name="+")
-    eps = models.IntegerField(verbose_name="Episodios")
+    anime = models.ForeignKey(
+        Anime,
+        on_delete=models.PROTECT,
+        related_name="+",
+    )
+    eps = models.PositiveIntegerField("Episódios")
+
+    def clean(self):
+        if self.eps > self.anime.epsT:
+            raise ValidationError("O número máximo de eps é %d" % self.anime.epsT)
+        if self.eps == self.anime.epsT:
+            self.status = "Completo"
+        if self.eps < self.anime.epsT and self.status == "Completo":
+            raise ValidationError("Status inválido")
