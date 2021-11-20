@@ -5,15 +5,3 @@ from .genero import GeneroViewSet
 from .estudio import EstudioViewSet
 from .lista import ListaViewSet
 from .anime import AnimeViewSet
-
-__all__ = [
-    "GeneroView",
-    "GeneroDetail",
-    "GenerosList",
-    "GeneroDetailGeneric",
-    "GenerosListGeneric",
-    "GeneroViewSet",
-    "EstudioViewSet",
-    "AnimeViewSet",
-    "ListaViewSet",
-]
