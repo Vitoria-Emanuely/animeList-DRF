@@ -1,0 +1,214 @@
+[
+    {
+        "model": "core.genero", 
+        "pk": 1, 
+        "fields": {
+            "descricao": "Terror"
+        }
+    }, 
+    {
+        "model": "core.genero", 
+        "pk": 2, 
+        "fields": {
+            "descricao": "Comédia"
+        }
+    }, 
+    {
+        "model": "core.genero", 
+        "pk": 3, 
+        "fields": {
+            "descricao": "Ação"
+        }
+        
+    },
+    {
+        "model": "core.genero", 
+        "pk": 4, 
+        "fields": {
+            "descricao": "Fantasia"
+        }
+    },
+    {
+        "model": "core.genero", 
+        "pk": 5, 
+        "fields": {
+            "descricao": "Drama"
+        }
+    },
+    {
+        "model": "core.genero", 
+        "pk": 6, 
+        "fields": {
+            "descricao": "Sobrenatural"
+        }
+    },
+    {
+        "model": "core.genero", 
+        "pk": 7, 
+        "fields": {
+            "descricao": "Aventura"
+        }
+    },
+    {
+        "model": "core.estudio", 
+        "pk": 1, 
+        "fields": {
+            "nome": "MAPPA"
+        }
+    }, 
+    {
+        "model": "core.estudio", 
+        "pk": 2, 
+        "fields": {
+            "nome": "Bones"
+        }
+    }, 
+    {
+        "model": "core.estudio", 
+        "pk": 3, 
+        "fields": {
+            "nome": "Madhouse"
+        }
+    }, 
+    {
+        "model": "core.estudio", 
+        "pk": 4, 
+        "fields": {
+            "nome": "Signal.MD"
+        }
+    },
+    {
+        "model": "core.estudio", 
+        "pk": 5, 
+        "fields": {
+            "nome": "Passione"
+        }
+    },
+    {
+        "model": "core.anime",
+        "pk": 1, 
+        "fields": {
+            "titulo": "Mieruko-chan", 
+            "epsT": 12, 
+            "genero": [1, 2, 6], 
+            "estudio": [5]
+        }
+    }, 
+    {
+        "model": "core.anime",
+        "pk": 2, 
+        "fields": {
+            "titulo": "Vanitas no Karte", 
+            "epsT": 12, 
+            "genero": [6], 
+            "estudio": [2]
+        }
+    }, 
+    {
+        "model": "core.anime",
+        "pk": 3, 
+        "fields": {
+            "titulo": "Platinum End", 
+            "epsT": 24, 
+            "genero": [5, 6], 
+            "estudio": [4]
+        }
+    }, 
+    {
+        "model": "core.anime",
+        "pk": 4, 
+        "fields": {
+            "titulo": "Jujutsu Kaisen", 
+            "epsT": 24, 
+            "genero": [3, 6], 
+            "estudio": [1]
+        }
+    }, 
+    {
+        "model": "core.anime",
+        "pk": 5, 
+        "fields": {
+            "titulo": "Takt Op. Destiny", 
+            "epsT": 24, 
+            "genero": [3, 4], 
+            "estudio": [1, 3]
+        }
+    }, 
+    {
+        "model": "core.anime",
+        "pk": 6, 
+        "fields": {
+            "titulo": "Chainsaw Man", 
+            "epsT": 24, 
+            "genero": [3, 7], 
+            "estudio": [1]
+        }
+    },
+    {
+        "model": "core.lista",
+        "pk": 1, 
+        "fields": {
+            "usuario": 1
+        }
+    }, 
+    {
+        "model": "core.listaanimes", 
+        "pk": 1, 
+        "fields": {
+            "lista": 1, 
+            "status": "Assistindo", 
+            "anime": 1, 
+            "eps": 6
+        }
+    }, 
+    {
+        "model": "core.listaanimes", 
+        "pk": 2, 
+        "fields": {
+            "lista": 1, 
+            "status": "Completo", 
+            "anime": 2, 
+            "eps": 12
+        }
+    }, 
+    {
+        "model": "core.listaanimes", 
+        "pk": 3, 
+        "fields": {
+            "lista": 1, 
+            "status": "Assistindo", 
+            "anime": 3, 
+            "eps": 4
+        }
+    }, 
+    {
+        "model": "core.listaanimes", 
+        "pk": 4, 
+        "fields": {
+            "lista": 1, 
+            "status": "Completo", 
+            "anime": 4, 
+            "eps": 24
+        }
+    },
+    {
+        "model": "core.listaanimes", 
+        "pk": 5, 
+        "fields": {
+            "lista": 1, 
+            "status": "Assistindo", 
+            "anime": 5, 
+            "eps": 3
+        }
+    },
+    {
+        "model": "core.listaanimes", 
+        "pk": 6, 
+        "fields": {
+            "lista": 1, 
+            "status": "Quero assistir", 
+            "anime": 6, 
+            "eps": 0
+        }
+    }
+]    
