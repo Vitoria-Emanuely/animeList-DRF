@@ -4,9 +4,6 @@ from django.core.exceptions import ValidationError
 
 
 class Genero(models.Model):
-    class Meta:
-        verbose_name_plural = "Generos"
-
     descricao = models.CharField("Descrição", max_length=100)
 
     def __str__(self):
@@ -55,6 +52,9 @@ class Lista(models.Model):
 
 
 class ListaAnimes(models.Model):
+    class Meta:
+        verbose_name_plural = "Lista Animes"
+
     lista = models.ForeignKey(
         Lista, on_delete=models.CASCADE, related_name="lista_animes"
     )
