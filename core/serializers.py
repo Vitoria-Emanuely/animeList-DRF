@@ -7,6 +7,7 @@ from django.contrib.auth.hashers import make_password
 from core.models import Genero, Estudio, Anime, Lista, ListaAnimes
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from rest_framework import serializers
 
 
 class GeneroSerializer(ModelSerializer):
@@ -105,6 +106,7 @@ class CriarEditarListaAnimesSerializer(ModelSerializer):
 
 class CriarEditarListaSerializer(ModelSerializer):
     lista_animes = CriarEditarListaAnimesSerializer(many=True)
+    usuario = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Lista
