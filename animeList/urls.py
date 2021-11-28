@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from core import views
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 router = routers.DefaultRouter()
 router.register(r"generos", views.GeneroViewSet)
@@ -34,4 +38,6 @@ urlpatterns = [
     path("generos-generic/", views.GenerosListGeneric.as_view()),
     path("generos-generic/<int:id>/", views.GeneroDetailGeneric.as_view()),
     path("", include(router.urls)),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh')
 ]
